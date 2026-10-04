@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Melvin Langat — Portfolio</title>
+
+  <meta name="description" content="Melvin Langat — Front-end & Back-end developer. Classic dark techy single-page portfolio." />
+
+  <style>
+    /* ========== Variables ========== */
+    :root{
+      --bg-1: #020204;        /* near black */
+      --bg-2: #001028;        /* deep navy */
+      --accent: #38bdf8;      /* neon cyan */
+      --accent-2: #7c3aed;    /* purple */
+      --glass: rgba(255,255,255,0.04);
+      --glass-strong: rgba(255,255,255,0.06);
+      --muted: #9aa6b2;
+      --card-border: rgba(56,189,248,0.12);
+      --max-width: 1100px;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(2,6,23,0.7);
+      --glass-blur: 10px;
+    }
+
+    /* ========== Reset & Base ========== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#e6eef6;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(56,189,248,0.06), transparent 8%),
+                  linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 45%, #000814 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      overflow-x:hidden;
+    }
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{opacity:.92}
+
+    .container{max-width:var(--max-width); margin:0 auto; padding:0 20px}
+
+    /* Screen-reader-only utility */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* ========== NAVBAR ========== */
+    nav.topbar{
+      position:fixed; left:0; right:0; top:0;
+      display:flex; align-items:center; justify-content:center;
+      padding:14px 0;
+      backdrop-filter: blur(6px) saturate(120%);
+      z-index:999;
+      transition: transform .35s ease, opacity .35s ease;
+      pointer-events:auto;
+    }
+    .nav-inner{width:100%; max-width:var(--max-width); display:flex; align-items:center; gap:18px; padding:0 20px;}
+    .brand{font-weight:700; letter-spacing:.2px; color:var(--accent); font-size:1.05rem; display:flex; align-items:center; gap:10px}
+    .brand-pic{width:34px; height:34px; border-radius:50%; object-fit:cover; border:1.5px solid var(--accent); flex:none}
+    .nav-links{margin-left:auto; display:flex; gap:12px; align-items:center}
+    .nav-links a{
+      padding:8px 12px; border-radius:8px; color:rgba(230,238,246,.85); font-weight:500; font-size:.95rem;
+      transition: background .18s, color .18s, transform .12s;
+    }
+    .nav-links a:hover{background:rgba(255,255,255,0.02); transform:translateY(-2px)}
+    .cta{
+      padding:8px 14px; border-radius:10px; background:linear-gradient(90deg, rgba(56,189,248,0.12), rgba(124,58,237,0.08));
+      border:1px solid rgba(56,189,248,0.12); color:white; font-weight:600;
+    }
+
+    /* Mobile nav button */
+    .burger{display:none; background:transparent; border:1px solid rgba(255,255,255,0.04); padding:8px; border-radius:10px; position:relative; z-index:1000}
+    .burger span{display:block; width:20px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; transition: transform .2s ease, opacity .2s ease}
+    .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+    /* ========== HERO ========== */
+    header.hero{
+      min-height:94vh; display:flex; align-items:center; justify-content:center; padding-top:90px;
+      position:relative;
+      background-image:
+        radial-gradient(900px 600px at 15% 20%, rgba(56,189,248,0.12), transparent 55%),
+        radial-gradient(800px 550px at 95% 75%, rgba(124,58,237,0.14), transparent 55%);
+    }
+    .hero-inner{display:grid; gap:40px; align-items:center; grid-template-columns:1fr; text-align:center}
+    .eyebrow{color:var(--muted); font-size:.9rem}
+    h1.title{font-size:2.2rem; margin:0; color:transparent; background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; font-weight:800}
+    p.lead{margin:0; color:rgba(230,238,246,.86); font-size:1.05rem}
+
+    .hero-ctas{display:flex; gap:12px; justify-content:center; margin-top:12px}
+    .btn{
+      padding:10px 16px; border-radius:12px; border:1px solid rgba(255,255,255,0.04); font-weight:600; cursor:pointer;
+      background:transparent; color:var(--accent); transition:transform .12s, box-shadow .12s;
+      display:inline-block;
+    }
+    .btn.secondary{background:linear-gradient(90deg, rgba(56,189,248,0.08), rgba(124,58,237,0.06)); color:white}
+    .btn:hover{transform:translateY(-3px); box-shadow:0 8px 30px rgba(56,189,248,0.06)}
+
+    /* subtle animated code-like underline */
+    .code-line{height:2px; width:72px; margin:14px auto 0; background:linear-gradient(90deg,var(--accent),transparent); border-radius:4px; opacity:.9}
+
+    /* ========== HERO VISUAL (photo) ========== */
+    .hero-visual{position:relative; max-width:460px; margin:0 auto; width:100%}
+    .hero-photo-frame{
+      position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--card-border);
+      box-shadow:var(--shadow); aspect-ratio:4/5;
+    }
+    .hero-photo-frame img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05) contrast(1.03)}
+    .hero-photo-frame::after{
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(2,6,23,0) 45%, rgba(2,6,23,.75) 100%),
+                 linear-gradient(90deg, rgba(2,6,23,.35), transparent 40%);
+    }
+    .hero-visual .glass{
+      position:absolute; left:16px; right:16px; bottom:16px; z-index:2;
+    }
+
+    /* ========== GLASS CARD ========== */
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--card-border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+    }
+
+    /* ========== SECTIONS ========== */
+    section{padding:60px 0; position:relative}
+
+    /* About section background: circuit-style dot grid + soft glows */
+    #about{
+      background-image:
+        radial-gradient(600px 400px at 85% 10%, rgba(124,58,237,0.10), transparent 60%),
+        radial-gradient(500px 350px at 5% 90%, rgba(56,189,248,0.08), transparent 60%),
+        radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1.5px);
+      background-size:auto, auto, 26px 26px;
+      background-position:0 0, 0 0, 0 0;
+    }
+
+    /* Projects section background: diagonal gradient mesh */
+    #projects{
+      background-image:
+        radial-gradient(700px 450px at 90% 0%, rgba(56,189,248,0.10), transparent 55%),
+        radial-gradient(650px 500px at 0% 100%, rgba(124,58,237,0.12), transparent 55%),
+        linear-gradient(135deg, rgba(56,189,248,0.03) 0%, transparent 40%, rgba(124,58,237,0.03) 100%);
+    }
+    .section-title{display:flex; align-items:baseline; gap:12px; margin-bottom:18px}
+    .section-title h2{margin:0; font-size:1.25rem; color:var(--accent)}
+    .section-sub{color:var(--muted); font-size:.95rem}
+
+    /* ABOUT / SKILLS LAYOUT */
+    .about-grid{display:grid; gap:18px; grid-template-columns: 1fr; align-items:start}
+    .about-text{font-size:1rem; color:rgba(230,238,246,.92)}
+
+    .skills-list{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .skill-pill{
+      padding:8px 12px; border-radius:999px; font-weight:600; font-size:.88rem;
+      background:linear-gradient(180deg, rgba(56,189,248,0.06), rgba(124,58,237,0.03));
+      border:1px solid rgba(56,189,248,0.08); color:var(--accent);
+    }
+
+    /* ========== PROJECTS GRID ========== */
+    .projects-grid{display:grid; gap:16px; grid-template-columns:1fr; margin-top:14px}
+    .project-card{
+      display:flex; flex-direction:column; gap:12px; min-height:160px;
+      border-radius:12px; padding:16px; transition:transform .18s, box-shadow .18s;
+      border:1px solid rgba(255,255,255,0.03);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(2,6,23,0.18));
+    }
+    .project-card:hover{transform:translateY(-8px); box-shadow:0 20px 50px rgba(2,6,23,0.7)}
+    .project-meta{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:.95rem}
+    .tags{margin-left:auto; display:flex; gap:8px; flex-wrap:wrap}
+    .tag{font-size:.78rem; padding:6px 8px; border-radius:8px; background:rgba(255,255,255,0.02); color:var(--muted); border:1px solid rgba(255,255,255,0.02)}
+
+    /* ========== CONTACT ========== */
+    .contact-grid{display:grid; gap:18px; grid-template-columns:1fr; align-items:start}
+    .contact-list{list-style:none; padding:0; margin:0; color:var(--muted)}
+    .contact-list li{margin-bottom:10px}
+
+    input, textarea{
+      width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.04);
+      background:rgba(0,0,0,0.36); color:inherit; outline:none; resize:vertical;
+    }
+    .form-btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(56,189,248,0.12); background:linear-gradient(90deg, rgba(56,189,248,0.08), rgba(124,58,237,0.06)); color:white; font-weight:700}
+    .form-note{color:var(--muted); font-size:.85rem; margin-top:8px}
+
+    /* ========== FOOTER ========== */
+    footer.sitefoot{padding:28px 0; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,0.02)}
+
+    /* ========== REVEAL ANIMATIONS ========== */
+    .reveal{
+      opacity:0; transform:translateY(18px) scale(.995); transition: opacity .7s cubic-bezier(.2,.9,.2,1), transform .7s cubic-bezier(.2,.9,.2,1);
+    }
+    .reveal.in-view{opacity:1; transform:none}
+
+    /* ========== RESPONSIVE ========== */
+    @media(min-width:880px){
+      .about-grid{grid-template-columns: 1fr 420px}
+      .projects-grid{grid-template-columns: repeat(2, 1fr)}
+      .contact-grid{grid-template-columns: 1fr 420px}
+      .hero-inner{grid-template-columns:1fr 440px; text-align:left; align-items:center}
+      .nav-links{display:flex}
+      .burger{display:none}
+    }
+    @media(max-width:879px){
+      .nav-links{display:none}
+      .burger{display:block; margin-left:auto}
+      .hero-inner{padding:6px 0}
+      h1.title{font-size:1.6rem}
+      .hero-visual{max-width:340px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="topbar" id="topbar" aria-label="Primary navigation">
+    <div class="nav-inner container">
+      <div class="brand"><img class="brand-pic" src="melvin.jpg" alt="Melvin Langat" />Melvin Langat</div>
+
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" title="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-links" id="navLinks" role="menubar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact" class="cta">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="container hero-inner">
+      <div>
+        <div class="eyebrow reveal">Front-end & Back-end Developer</div>
+        <h1 class="title reveal">Hi — I’m Melvin Langat</h1>
+        <p class="lead reveal">I build polished, responsive web experiences that blend sleek UI with reliable back-end logic. I enjoy clean code, fast load times, and interfaces that feel thoughtful.</p>
+
+        <div class="hero-ctas reveal" style="margin-top:18px">
+          <button class="btn" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">See projects</button>
+          <button class="btn secondary" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+        </div>
+
+        <div class="code-line reveal"></div>
+      </div>
+
+      <!-- hero photo with floating profile card -->
+      <div class="hero-visual reveal">
+        <div class="hero-photo-frame">
+          <img src="melvin.jpg" alt="Melvin Langat" loading="lazy" />
+        </div>
+        <div class="glass">
+          <div style="display:flex; gap:12px; align-items:center">
+            <img src="melvin.jpg" alt="Melvin Langat" style="width:52px; height:52px; border-radius:12px; object-fit:cover; flex:none" />
+            <div>
+              <div style="font-weight:700">Melvin Langat</div>
+              <div style="color:var(--muted); font-size:.85rem">Full-stack-minded — Front-end & Back-end</div>
+            </div>
+          </div>
+          <div style="margin-top:10px; font-size:.85rem; color:var(--muted)">
+            <div>📍 Kenya</div>
+            <div style="margin-top:4px">LinkedIn: <a href="https://www.linkedin.com/in/melvin-langat-499a1a336" target="_blank" rel="noopener">melvin-langat-499a1a336</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="aboutTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="aboutTitle">About</h2>
+        <div class="section-sub">The good, the code, and the occasional coffee-fueled debugging</div>
+      </div>
+
+      <div class="about-grid">
+        <div class="glass about-text reveal">
+          <p><strong>Hey — I’m Melvin.</strong> I craft user-focused front-end interfaces and pair them with solid back-end logic so products actually work for people. I care about performance, accessibility, and clean architecture that scales.</p>
+          <p>My approach: start with a clear UI, make the interactions smooth, and build back-end flows that are maintainable. I enjoy turning ideas into features that people actually use.</p>
+          <p style="margin:0; color:var(--muted)"><em>Outside coding: I tinker with side projects, learn new frameworks, and design small tools that solve annoying problems.</em></p>
+        </div>
+
+        <div class="glass reveal" style="padding-top:20px">
+          <h3 style="margin:0 0 8px; color:var(--accent)">Skills</h3>
+
+          <div style="display:grid; gap:10px">
+            <div>
+              <strong>Front-End</strong>
+              <div class="skills-list">
+                <span class="skill-pill">HTML5</span>
+                <span class="skill-pill">CSS3</span>
+                <span class="skill-pill">JavaScript (ES6+)</span>
+                <span class="skill-pill">React.js</span>
+                <span class="skill-pill">Responsive Design</span>
+              </div>
+            </div>
+
+            <div>
+              <strong>Back-End</strong>
+              <div class="skills-list">
+                <span class="skill-pill">PHP</span>
+                <span class="skill-pill">MySQL</span>
+                <span class="skill-pill">SQL Server</span>
+                <span class="skill-pill">Java</span>
+                <span class="skill-pill">C#</span>
+              </div>
+            </div>
+
+            <div>
+              <strong>Tools & Others</strong>
+              <div class="skills-list">
+                <span class="skill-pill">Git & GitHub</span>
+                <span class="skill-pill">Visual Studio / VS Code</span>
+                <span class="skill-pill">Figma</span>
+                <span class="skill-pill">M-Pesa API (in progress)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" aria-labelledby="projectsTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="projectsTitle">Projects</h2>
+        <div class="section-sub">Selected projects</div>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project: DriveSphere -->
+        <article class="project-card reveal" aria-labelledby="pDS">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:46px; height:46px; border-radius:8px; background:linear-gradient(135deg,var(--accent),rgba(124,58,237,0.6)); display:flex; align-items:center; justify-content:center; font-weight:800;">DS</div>
+            <div>
+              <h3 id="pDS" style="margin:0 0 6px">DriveSphere</h3>
+              <div class="project-meta"><div>PHP 8.2 / MySQL / Custom MVC / Bootstrap 5</div></div>
+            </div>
+          </div>
+          <p style="color:var(--muted); margin:8px 0 0; flex:1">
+            A full-stack car marketplace built from scratch on a custom MVC architecture — vehicle listings, rentals, purchases, payments, reviews, messaging, and role-based admin management.
+          </p>
+          <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+            <a class="btn secondary" href="https://github.com/melvinlagz/Drivesphere" target="_blank" rel="noopener">Source</a>
+            <div style="margin-left:auto; color:var(--muted);" class="tags">
+              <span class="tag">php</span>
+              <span class="tag">mysql</span>
+              <span class="tag">marketplace</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project: Rental Management System -->
+        <article class="project-card reveal" aria-labelledby="p2">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:46px; height:46px; border-radius:8px; background:linear-gradient(135deg,var(--accent-2),var(--accent)); display:flex; align-items:center; justify-content:center; font-weight:800;">RM</div>
+            <div><h3 id="p2" style="margin:0 0 6px">Rental Management System</h3><div class="project-meta">React + Tailwind + shadcn/ui, PHP/MySQL backend</div></div>
+          </div>
+          <p style="color:var(--muted); margin:8px 0 0; flex:1">
+            A rent tracking app for landlords — dashboard, properties, tenants, payments, reports and notifications, built as a PWA and being wired up to a PHP + MySQL backend.
+          </p>
+          <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+            <a class="btn" href="https://strata-bamboo-74760977.figma.site" target="_blank" rel="noopener">View Demo</a>
+            <div style="margin-left:auto; color:var(--muted);" class="tags">
+              <span class="tag">dashboard</span><span class="tag">saas</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project: Kamara Sacco -->
+        <article class="project-card reveal" aria-labelledby="pKS">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:46px; height:46px; border-radius:8px; background:linear-gradient(135deg,#4e7654,var(--accent)); display:flex; align-items:center; justify-content:center; font-weight:800;">KS</div>
+            <div>
+              <h3 id="pKS" style="margin:0 0 6px">Kamara Sacco</h3>
+              <div class="project-meta"><div>HTML / CSS</div></div>
+            </div>
+          </div>
+          <p style="color:var(--muted); margin:8px 0 0; flex:1">
+            A concept site for a farmers' savings and credit cooperative in Nakuru County — savings and loan products, an earthy green visual identity, designed in Figma.
+          </p>
+          <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+            <a class="btn secondary" href="https://github.com/melvinlagz/Kamara-Sacco" target="_blank" rel="noopener">Source</a>
+            <div style="margin-left:auto; color:var(--muted);" class="tags">
+              <span class="tag">fintech</span><span class="tag">static site</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project: The Green Fork -->
+        <article class="project-card reveal" aria-labelledby="pGF">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:46px; height:46px; border-radius:8px; background:linear-gradient(135deg,#e5b83f,var(--accent-2)); display:flex; align-items:center; justify-content:center; font-weight:800;">GF</div>
+            <div>
+              <h3 id="pGF" style="margin:0 0 6px">The Green Fork</h3>
+              <div class="project-meta"><div>HTML / CSS</div></div>
+            </div>
+          </div>
+          <p style="color:var(--muted); margin:8px 0 0; flex:1">
+            A single-page site for a neighbourhood cafe in Kilimani, Nairobi — menu, story, and visit details, with a WhatsApp ordering link built in.
+          </p>
+          <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+            <a class="btn secondary" href="https://github.com/melvinlagz/The-Green-Fork-Hotel" target="_blank" rel="noopener">Source</a>
+            <div style="margin-left:auto; color:var(--muted);" class="tags">
+              <span class="tag">hospitality</span><span class="tag">static site</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project: Nexora -->
+        <article class="project-card reveal" aria-labelledby="pNX">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:46px; height:46px; border-radius:8px; background:linear-gradient(135deg,var(--accent),#7c3aed); display:flex; align-items:center; justify-content:center; font-weight:800;">NX</div>
+            <div>
+              <h3 id="pNX" style="margin:0 0 6px">Nexora</h3>
+              <div class="project-meta"><div>HTML / CSS / JavaScript</div></div>
+            </div>
+          </div>
+          <p style="color:var(--muted); margin:8px 0 0; flex:1">
+            A landing page for a fictional independent digital studio based in Nairobi — animated hero, services, approach, and contact sections.
+          </p>
+          <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+            <a class="btn secondary" href="https://github.com/melvinlagz/Nexora" target="_blank" rel="noopener">Source</a>
+            <div style="margin-left:auto; color:var(--muted);" class="tags">
+              <span class="tag">agency</span><span class="tag">static site</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project: Matatu Booking System -->
+        <article class="project-card reveal" aria-labelledby="p1">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:46px; height:46px; border-radius:8px; background:linear-gradient(135deg,var(--accent),rgba(124,58,237,0.6)); display:flex; align-items:center; justify-content:center; font-weight:800;">MB</div>
+            <div>
+              <h3 id="p1" style="margin:0 0 6px">Matatu Booking System</h3>
+              <div class="project-meta"><div>PHP / MySQL / CSS / JavaScript</div></div>
+            </div>
+          </div>
+          <p style="color:var(--muted); margin:8px 0 0; flex:1">
+            A booking platform for matatu (public transport) seats — riders can browse routes, select and book seats, and pay online.
+          </p>
+          <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+            <a class="btn secondary" href="#" data-role="source-link" data-project="Matatu Booking System">Source</a>
+            <div style="margin-left:auto; color:var(--muted);" class="tags">
+              <span class="tag">transport</span>
+              <span class="tag">payments</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contactTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="contactTitle">Contact</h2>
+        <div class="section-sub">Let's make something useful — or just say hi.</div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="glass reveal">
+          <h3 style="margin-top:0; color:var(--accent)">Get in touch</h3>
+          <ul class="contact-list">
+            <li><strong>Email:</strong> <a href="mailto:melvinlangat1@gmail.com">melvinlangat1@gmail.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+254748359237">+254 748 359 237</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/melvin-langat-499a1a336" target="_blank" rel="noopener">linkedin.com/in/melvin-langat-499a1a336</a></li>
+            <li><strong>GitHub:</strong> <a href="https://github.com/melvinlagz" target="_blank" rel="noopener">github.com/melvinlagz</a></li>
+          </ul>
+        </div>
+
+        <div class="glass reveal">
+          <h3 style="margin-top:0; color:var(--accent)">Send a quick message</h3>
+          <form id="contactForm" onsubmit="handleForm(event)" novalidate>
+            <div style="margin-bottom:10px">
+              <label class="sr-only" for="nameInput">Name</label>
+              <input id="nameInput" name="name" placeholder="Your name" required>
+            </div>
+            <div style="margin-bottom:10px">
+              <label class="sr-only" for="emailInput">Email</label>
+              <input id="emailInput" type="email" name="email" placeholder="Your email" required>
+            </div>
+            <div style="margin-bottom:10px">
+              <label class="sr-only" for="messageInput">Message</label>
+              <textarea id="messageInput" name="message" rows="5" placeholder="Your message" required></textarea>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center">
+              <button class="form-btn" type="submit">Send message</button>
+            </div>
+            <div class="form-note">Opens your email app addressed to melvinlangat1@gmail.com with your message pre-filled.</div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="sitefoot">
+    <div class="container">
+      © <span id="yr"></span> Melvin Langat • Built with HTML, CSS & JS
+    </div>
+  </footer>
+
+  <!-- ========== Scripts ========== -->
+  <script>
+    // Set year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Navbar show/hide on scroll (fade out when scrolling down)
+    (function(){
+      const topbar = document.getElementById('topbar');
+      let lastY = window.pageYOffset || document.documentElement.scrollTop;
+      const threshold = 50;
+      window.addEventListener('scroll', () => {
+        const y = window.pageYOffset || document.documentElement.scrollTop;
+        if(Math.abs(y - lastY) < 10) return; // small noise
+        if(y > lastY && y > threshold) {
+          // scrolling down
+          topbar.style.transform = 'translateY(-90px)';
+          topbar.style.opacity = '0';
+        } else {
+          // scrolling up
+          topbar.style.transform = '';
+          topbar.style.opacity = '1';
+        }
+        lastY = y;
+      }, {passive:true});
+    })();
+
+    // Simple mobile menu
+    (function(){
+      const burger = document.getElementById('burger');
+      const navLinks = document.getElementById('navLinks');
+      burger.addEventListener('click', () => {
+        const isOpen = navLinks.style.display === 'flex';
+        navLinks.style.display = isOpen ? '' : 'flex';
+        burger.setAttribute('aria-expanded', String(!isOpen));
+      });
+    })();
+
+    // Reveal on scroll using IntersectionObserver
+    (function(){
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.classList.add('in-view');
+            obs.unobserve(e.target);
+          }
+        });
+      }, {threshold: 0.12});
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    })();
+
+    // Placeholder Source links (for projects without a public repo yet)
+    (function(){
+      document.querySelectorAll('[data-role="source-link"]').forEach(a => {
+        a.addEventListener('click', (ev) => {
+          if(a.getAttribute('href') === '#'){
+            ev.preventDefault();
+            const project = a.getAttribute('data-project') || 'this project';
+            alert('Add a real link for "' + project + '" — replace the href on this button with your GitHub repo URL.');
+          }
+        });
+      });
+    })();
+
+    // Contact form: builds a mailto: link from the fields (no backend required)
+    function handleForm(e){
+      e.preventDefault();
+      const f = e.target;
+      const name = f.name.value.trim();
+      const email = f.email.value.trim();
+      const message = f.message.value.trim();
+      if(!name || !email || !message){ alert('Please complete all fields.'); return; }
+      const subject = encodeURIComponent('Portfolio contact from ' + name);
+      const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+      window.location.href = 'mailto:melvinlangat1@gmail.com?subject=' + subject + '&body=' + body;
+    }
+
+    // Smooth link behavior for internal anchors
+    (function(){
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (ev) => {
+          const href = a.getAttribute('href');
+          if(href === '#') return;
+          ev.preventDefault();
+          const el = document.querySelector(href);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
