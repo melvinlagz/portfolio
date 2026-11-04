@@ -6,7 +6,7 @@ A single-page personal portfolio site for Melvin Langat, a front-end & back-end 
 
 - HTML5
 - CSS3 (custom styles, no framework)
-- Vanilla JavaScript
+- JavaScript
 
 ## Features
 
